@@ -5,5 +5,7 @@ import SwiftUI
         WindowGroup {
             ContentView()
         }
+        .windowStyle(.hiddenTitleBar)
+        .defaultSize(width: 400, height: 600)
     }
 }
