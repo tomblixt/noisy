@@ -3,6 +3,10 @@ import AppKit
 final class AppDelegate: NSObject, NSApplicationDelegate {
     let sounds = BackgroundSounds()
 
+    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+        false
+    }
+
     func applicationDockMenu(_ sender: NSApplication) -> NSMenu? {
         sounds.refresh()
         let menu = NSMenu()
