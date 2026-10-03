@@ -29,6 +29,10 @@ nonisolated enum BackgroundSound: String, CaseIterable, Identifiable {
     }
 
     var title: String {
+        SystemSoundNames.name(for: fileName) ?? englishTitle
+    }
+
+    private var englishTitle: String {
         switch self {
         case .balancedNoise: "Balanced Noise"
         case .brightNoise: "Bright Noise"
@@ -66,5 +70,29 @@ nonisolated enum BackgroundSound: String, CaseIterable, Identifiable {
         case .rainOnRoof: "house"
         case .quietNight: "moon.zzz"
         }
+    }
+}
+
+private nonisolated enum SystemSoundNames {
+    private static let names: [String: String] = {
+        let url = URL(filePath: "/System/Library/PrivateFrameworks/HearingUtilities.framework/Resources/HearingAidSupport.loctable")
+        guard let data = try? Data(contentsOf: url),
+              let table = try? PropertyListSerialization.propertyList(from: data, format: nil) as? [String: Any]
+        else { return [:] }
+
+        let appLanguage = Bundle.main.preferredLocalizations.first ?? "en"
+        let appLanguageCode = Locale(identifier: appLanguage).language.languageCode
+        let preferences = Locale.preferredLanguages.filter { Locale(identifier: $0).language.languageCode == appLanguageCode }
+            + [appLanguage]
+        guard let best = Bundle.preferredLocalizations(from: Array(table.keys), forPreferences: preferences).first else { return [:] }
+
+        let base = Locale(identifier: best).language.languageCode?.identifier ?? best
+        var names = table[base] as? [String: String] ?? [:]
+        names.merge(table[best] as? [String: String] ?? [:]) { _, regional in regional }
+        return names
+    }()
+
+    static func name(for fileName: String) -> String? {
+        names["ComfortSound_\(fileName)"]
     }
 }
