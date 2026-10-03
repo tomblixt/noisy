@@ -5,7 +5,7 @@ import notify
 @Observable
 final class BackgroundSounds {
     private(set) var isPlaying = false
-    private(set) var selected: BackgroundSound = .balancedNoise
+    private(set) var selected: BackgroundSound?
     private(set) var volume: Double = 0.5
     private(set) var timerEnd: Date?
 
@@ -62,7 +62,7 @@ final class BackgroundSounds {
         if !playing && timerEnd != nil { cancelTimer() }
     }
 
-    private func refresh() {
+    func refresh() {
         CFPreferencesAppSynchronize(domain)
         isPlaying = read("comfortSoundsEnabled") as? Bool ?? false
         volume = read("relativeVolume") as? Double ?? volume

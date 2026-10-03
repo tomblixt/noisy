@@ -15,19 +15,21 @@ struct PlayerControls: View {
                         .glassEffect(.regular.tint(.accentColor).interactive(), in: .circle)
                 }
                 .buttonStyle(.plain)
+                .disabled(sounds.selected == nil)
                 .accessibilityLabel(sounds.isPlaying ? "Pause" : "Play")
 
                 VStack(alignment: .leading, spacing: 2) {
                     Text("Sound")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
-                    Text(sounds.selected.title)
+                    Text(sounds.selected?.title ?? "None")
                         .font(.title3)
                 }
 
                 Spacer()
 
                 TimerMenu(sounds: sounds)
+                    .disabled(sounds.selected == nil)
             }
 
             HStack(spacing: 10) {

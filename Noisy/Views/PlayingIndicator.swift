@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct PlayingIndicator: View {
+    @Environment(\.playingIndicatorColor) private var color
+
     private let speeds = [5.3, 7.1, 4.4, 6.2]
 
     var body: some View {
@@ -15,7 +17,12 @@ struct PlayingIndicator: View {
             }
             .frame(height: 16, alignment: .bottom)
         }
-        .foregroundStyle(.tint)
+        .foregroundStyle(color.map(AnyShapeStyle.init) ?? AnyShapeStyle(.tint))
         .accessibilityLabel("Playing")
     }
+}
+
+extension EnvironmentValues {
+    /// Overrides the playing indicator's color, which otherwise follows the selection tint.
+    @Entry var playingIndicatorColor: Color?
 }

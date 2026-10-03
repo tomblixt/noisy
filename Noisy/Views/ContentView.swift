@@ -2,7 +2,7 @@ import AppKit
 import SwiftUI
 
 struct ContentView: View {
-    @State private var sounds = BackgroundSounds()
+    let sounds: BackgroundSounds
     @State private var isScrolledToBottom = false
 
     var body: some View {
@@ -19,6 +19,7 @@ struct ContentView: View {
                 }
             }
             .listRowSeparator(.visible)
+            .listRowSeparatorTint(Color(nsColor: .separatorColor))
         }
         .listStyle(.plain)
         .onScrollGeometryChange(for: Bool.self) { geometry in
@@ -36,7 +37,6 @@ struct ContentView: View {
                         .opacity(isScrolledToBottom ? 0 : 1)
                 }
         }
-        .frame(minWidth: 340, idealWidth: 400, minHeight: 360, idealHeight: 600)
         .task { await sounds.monitor() }
     }
 }
@@ -54,5 +54,5 @@ private struct BackdropBlur: NSViewRepresentable {
 }
 
 #Preview {
-    ContentView()
+    ContentView(sounds: BackgroundSounds())
 }
