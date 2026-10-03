@@ -9,7 +9,7 @@ struct MenuBarContent: View {
         VStack(spacing: 0) {
             ContentView(sounds: sounds)
                 .environment(\.selectionTint, .primary)
-                .environment(\.playingIndicatorColor, .white)
+                .environment(\.playingIndicatorColor, Self.solidPrimary)
 
             Divider()
 
@@ -29,6 +29,10 @@ struct MenuBarContent: View {
         }
         .frame(width: 360, height: 560)
     }
+
+    private static let solidPrimary = Color(nsColor: NSColor(name: nil) { appearance in
+        appearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua ? .white : .black
+    })
 
     private func showSettings() {
         openSettings()
