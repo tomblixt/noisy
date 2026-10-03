@@ -8,11 +8,11 @@ struct PlayerControls: View {
             HStack(spacing: 14) {
                 Button(action: sounds.togglePlayback) {
                     Image(systemName: sounds.isPlaying ? "pause.fill" : "play.fill")
-                        .font(.title)
+                        .font(.title2)
                         .foregroundStyle(.white)
                         .contentTransition(.symbolEffect(.replace))
-                        .frame(width: 60, height: 60)
-                        .background(.tint, in: .circle)
+                        .frame(width: 48, height: 48)
+                        .glassEffect(.regular.tint(.accentColor).interactive(), in: .circle)
                 }
                 .buttonStyle(.plain)
                 .accessibilityLabel(sounds.isPlaying ? "Pause" : "Play")

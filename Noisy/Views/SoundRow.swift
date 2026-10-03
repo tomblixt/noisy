@@ -6,18 +6,31 @@ struct SoundRow: View {
     let isPlaying: Bool
     let action: () -> Void
 
+    @State private var isHovering = false
+
     var body: some View {
         Button(action: action) {
             HStack(spacing: 14) {
                 Image(systemName: sound.symbol)
                     .font(.title2)
+                    .opacity(isHovering ? 0 : 1)
                     .frame(width: 48, height: 48)
                     .background(.quaternary, in: .rect(cornerRadius: 10))
+                    .overlay {
+                        if isHovering {
+                            Image(systemName: isPlaying ? "pause.fill" : "play.fill")
+                                .font(.title2)
+                                .foregroundStyle(.white)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                .background(.black.opacity(0.5), in: .rect(cornerRadius: 10))
+                                .transition(.opacity)
+                        }
+                    }
 
                 HStack {
                     Text(sound.title)
                         .font(.title3)
-                        .foregroundStyle(isPlaying ? Color.accentColor : .primary)
+                        .foregroundStyle(isSelected ? Color.accentColor : .primary)
                     Spacer()
                     if isPlaying {
                         PlayingIndicator()
@@ -28,12 +41,13 @@ struct SoundRow: View {
                     }
                 }
                 .padding(.trailing, 8)
-                .frame(maxHeight: .infinity)
-                .overlay(alignment: .bottom) { Divider() }
             }
-            .frame(height: 64)
+            .padding(.vertical, 4)
             .contentShape(.rect)
         }
         .buttonStyle(.plain)
+        .onHover { hovering in
+            withAnimation(.easeOut(duration: 0.15)) { isHovering = hovering }
+        }
     }
 }

@@ -26,8 +26,7 @@ struct TimerMenu: View {
             .foregroundStyle(sounds.timerEnd == nil ? AnyShapeStyle(.primary) : AnyShapeStyle(.tint))
             .padding(.horizontal, sounds.timerEnd == nil ? 0 : 14)
             .frame(minWidth: 44, minHeight: 44)
-            .background(.background, in: .capsule)
-            .shadow(color: .black.opacity(0.08), radius: 4, y: 1)
+            .glassEffect(.regular.interactive(), in: .capsule)
             .contentShape(.capsule)
         }
         .menuStyle(.button)
