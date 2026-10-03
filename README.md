@@ -8,7 +8,7 @@ macOS can play calming background sounds (rain, ocean, noise and more), but the 
 
 - Pick and play any of the built-in Background Sounds
 - Play and pause, with a volume slider
-- Sleep timer (15 minutes to 2 hours)
+- Sleep timer (5 minutes to 2 hours)
 - Run as a normal window or from the menu bar
 
 ## Using Noisy from the menu bar

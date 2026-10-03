@@ -3,7 +3,7 @@ import SwiftUI
 struct TimerMenu: View {
     let sounds: BackgroundSounds
 
-    private let options = [(15, "15 Minutes"), (30, "30 Minutes"), (45, "45 Minutes"), (60, "1 Hour"), (120, "2 Hours")]
+    private let options = [(5, "5 Minutes"), (15, "15 Minutes"), (30, "30 Minutes"), (45, "45 Minutes"), (60, "1 Hour"), (120, "2 Hours")]
 
     var body: some View {
         Menu {
